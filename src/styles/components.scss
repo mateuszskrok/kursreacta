@@ -3,19 +3,5 @@
 @import "./components/CurrentTimebox.scss";
 @import "./components/Timebox.scss";
 @import "./components/ProgressBar.scss";
-
-.TimeboxEditor, .TimeboxCreator{
-    text-align: right;
-    border: $default-border;
-    border-radius: $default-border-radius;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.TimeboxEditor{
-    background-color: darken(gainsboro,30);
-}
-
-.TimeboxCreator{
-    background-color: darken(aliceblue,20);
-}
+@import "./components/TimeboxEditor.scss";
+@import "./components/TimeboxCreator.scss";
