@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Clock from "./Clock";
 import ProgressBar from "./ProgressBar";
 import Timebox from "./Timebox";
+import TimeboxEditor from "./TimeboxEditor";
 
 
 class CurrentTimebox extends React.Component{
@@ -92,43 +93,7 @@ class CurrentTimebox extends React.Component{
   
 }
 
-function TimeboxEditor(props){
-    const {
-        title, 
-        totalTimeInMinutes,
-        isEditable,
-        onTitleChange,
-        onTotalTimeInMinutesChange,
-        onConfirm
-        } = props;
-    return (
-    <div className={`TimeboxEditor ${isEditable ? "" : "inactive"}`}>
-        <label>Co robisz?
-        <input
-            disabled={!isEditable}
-            value={title}
-            type="text"
-            onChange={onTitleChange}
-        />
-        </label><br />
-        <label>Ile minut? 
-        <input 
-        disabled={!isEditable}
-            value={totalTimeInMinutes}
-            type="number"
-            onChange={onTotalTimeInMinutesChange}
-        />
-        </label><br />
-        <button
-            onClick={onConfirm}
-            disabled={!isEditable}
-            >
-                Zatwierdź zmiany
-        </button>
-  
-    </div>
-    )
-}
+
 
 class EditableTimebox extends React.Component{
     state = {
