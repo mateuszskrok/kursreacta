@@ -2,12 +2,8 @@ import React from "react";
 
 import { v4 as uuidv4 } from 'uuid';
 import Clock from "./Clock";
+import ProgressBar from "./ProgressBar";
 
-function ProgressBar({className = "", percent =20}) {
-    return  <div className={"ProgressBar" + className}>
-                <div style={{width:`${percent}%` }}></div>
-            </div>
-}
 
 class CurrentTimebox extends React.Component{
     constructor(props){
