@@ -2,40 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { v4 as uuidv4 } from 'uuid';
 
-function zFill(time,n) {
-    time = time.toString()
- 
-    while (time.length < n) {
-        time = "0" + time
-    }
-    return time
-}
+import Clock from "./components/Clock"
 
-function NormalizeTime(time,min,max){
-    if (time < min) {
-        return min
-    }
-    if (time > max) {
-        return max
-    }
-    else { return time }
-}
-
-function Clock({className = "", hours = 1, minutes = 7, seconds = 99, miliseconds =4532}) {
-
-    
-    hours = NormalizeTime(hours,0,23)
-    minutes = NormalizeTime(minutes,0,59)
-    seconds = NormalizeTime(seconds,0,59)
-    miliseconds = NormalizeTime(miliseconds,0,999)
-
-    hours = zFill(hours,2)
-    minutes =zFill(minutes,2)
-    seconds =zFill(seconds,2)
-    miliseconds =zFill(miliseconds,3)
-
-    return <h2 className={"Clock" + className}>Pozostało {minutes}:{seconds}</h2>
-}
 
 function ProgressBar({className = "", percent =20}) {
     return  <div className={"ProgressBar" + className}>
