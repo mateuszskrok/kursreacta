@@ -1,5 +1,6 @@
 import React from "react";
-import { TimeboxList, EditableTimebox } from "./components/remaining-components"
+import TimeboxList from "./components/TimeboxList";
+import EditableTimebox from "./components/EditableTimebox";
 
 function App(){
     return (
