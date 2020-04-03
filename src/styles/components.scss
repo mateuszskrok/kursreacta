@@ -1,7 +1,9 @@
+@import "./components/App.scss";
+@import "./components/Clock.scss";
+@import "./components/CurrentTimebox.scss";
+@import "./components/Timebox.scss";
+@import "./components/ProgressBar.scss";
 
-.App {
-    font-family: sans-serif;
-}
 .TimeboxEditor, .TimeboxCreator{
     text-align: right;
     border: $default-border;
@@ -16,43 +18,4 @@
 
 .TimeboxCreator{
     background-color: darken(aliceblue,20);
-}
-
-.Timebox{
-    border: $default-border;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-input{
-    width: 60%;
-    margin-left: 20px;
-    font-size: 16px;
-}
-button{
-    font-style: 16px;
-    margin-left: 10px;
-}
-.CurrentTimebox{
-    text-align: center;
-    border: $default-border;
-    border-radius:$default-border-radius; 
-    padding: 20px;
-
-}
-.Clock{
-    color: orangered;
-}
-.ProgressBar{
-    border: 1px solid orangered;
-    border-radius:$default-border-radius;
-    height: 25px;
-    margin-bottom: 20px;
-    padding: 5px;
-
-    >div{
-        height: 100%;
-        background-color: orangered;
-    }
- 
 }
