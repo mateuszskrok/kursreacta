@@ -1,3 +1,14 @@
-.Clock{
+.clock{
     color: orangered;
+
+    &__minutes{
+        color: blueviolet;
+    }
+    &__separator{
+        color: chartreuse;
+    }
+    &__seconds{
+        color: darkblue;
+    }
 }
+
