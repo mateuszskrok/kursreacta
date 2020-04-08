@@ -12,7 +12,7 @@ class EditableTimebox extends React.Component{
         this.setState({title:event.target.value});
     } 
     handleTotalTimeInMinutesChange = (event) => {
-        this.setState({onTotalTimeInMinutes:event.target.value});
+        this.setState({totalTimeInMinutes:event.target.value});
     }
     handleConfirm = (event) => {
         this.setState({isEditable:false})
