@@ -23,6 +23,7 @@ class EditableTimebox extends React.Component{
     render(){
         const {title, totalTimeInMinutes, isEditable} = this.state;
         return(
+            <React.StrictMode>
             <>
             {isEditable ? (
                 <TimeboxEditor 
@@ -41,6 +42,7 @@ class EditableTimebox extends React.Component{
                     /> 
                 )}
             </>
+            </React.StrictMode>
             )
     }
 }

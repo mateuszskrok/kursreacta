@@ -1,15 +1,17 @@
 import React from "react";
 import TimeboxList from "./components/TimeboxList";
 import EditableTimebox from "./components/EditableTimebox";
-import RealTimeClock from "./components/RealTimeClock";
+//import RealTimeClock from "./components/RealTimeClock";
+import Error from "./components/Error"
 
 
 function App(){
     return (
       <div className="App">
-          <RealTimeClock/>
-          <TimeboxList/>
-          <EditableTimebox/>
+          <Error message="Coś nie działa w całej aplikacji">
+            <TimeboxList/>
+            <EditableTimebox/>
+          </Error>
       </div>
     )
 }

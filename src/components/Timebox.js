@@ -2,6 +2,10 @@ import React from "react";
 
 function Timebox({id, title,totalTimeInMinutes, isEditable, onTitleChange,
     onTotalTimeInMinutesChange, onDelete, onEdit, onSave, onCancel}){
+
+    if (totalTimeInMinutes <= 0){
+        throw new Error("Całkowity czas w minutach powinien być większy od zera.")
+    }   
     return(
         <div className="Timebox">
              {!isEditable ? 

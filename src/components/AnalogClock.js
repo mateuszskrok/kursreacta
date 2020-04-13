@@ -5,7 +5,6 @@ function HourHand(time){
     console.log("minuty:", time.minutes)
     console.log("sekundy:", time.seconds)
     
-
     const hourStyle = {
         transform: `rotate(${360*time.hours/12 + 15*time.minutes/60}deg)`
     }
