@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Timebox from "./Timebox";
 import TimeboxCreator from "./TimeboxCreator";
-import TimeboxEditor from "./TimeboxEditor";
 
 class TimeboxList extends React.Component{
     state = {
