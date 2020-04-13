@@ -1,0 +1,47 @@
+.AnalogClock {
+    background-color: rgb(223, 206, 165);
+    border-radius: 100%;
+    height: 100px;
+    width: 100px;
+}
+
+.hourHand{
+    background-color: black;
+    position:relative;
+    height:30px;
+    width:5px;
+    left:47px;
+    top:20px;
+    transform-origin: bottom center;
+}
+
+.minuteHand{
+    background-color: black;
+    position:relative;
+    height:40px;
+    width:2px;
+    left:48px;
+    top:-20px;
+    transform-origin: bottom center;
+}
+
+.secondHand{
+    background-color: red;
+    position: relative;
+    height:45px;
+    width:1px;
+    left:50px;
+    top:-68px;
+    transform-origin: bottom center;
+}
+
+.clockCenter {
+    background-color: black;
+    width:10px;
+    height: 10px;
+    border-radius: 100%;
+    position: relative;
+    left: 45px;
+    top: -70px;
+
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import AnalogClock from "./AnalogClock";
 
 function zFill(time,n) {
     time = time.toString()
@@ -41,9 +42,14 @@ class RealTimeClock extends React.Component{
     minutes =zFill(minutes,2)
     seconds =zFill(seconds,2)
 
-    return <h2 className={"Clock"}>Jest godzina{" "} 
-    {hours}:{minutes}:{seconds}
-    </h2>
+    return (
+        <>
+        <h2 className={"Clock"}>
+            Jest godzina {hours}:{minutes}:{seconds}
+        </h2>
+        <AnalogClock hours={parseInt(hours)} minutes={parseInt(minutes)} seconds={parseInt(seconds)}/>
+        </>
+    )
     }
 }
 
