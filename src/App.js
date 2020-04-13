@@ -2,16 +2,16 @@ import React from "react";
 import TimeboxList from "./components/TimeboxList";
 import EditableTimebox from "./components/EditableTimebox";
 //import RealTimeClock from "./components/RealTimeClock";
-import Error from "./components/Error"
+import ErrorBoundary from "./components/ErrorBoundary"
 
 
 function App(){
     return (
       <div className="App">
-          <Error message="Coś nie działa w całej aplikacji">
+          <ErrorBoundary message="Coś nie działa w całej aplikacji">
             <TimeboxList/>
             <EditableTimebox/>
-          </Error>
+          </ErrorBoundary>
       </div>
     )
 }

@@ -85,6 +85,7 @@ class CurrentTimebox extends React.Component{
         <div className={`CurrentTimebox ${!isEditable ? "" : "inactive"}`}>
                 <h1>{title}</h1> 
                 <Clock minutes={minutesLeft} seconds={secondsLeft} className={isPaused ? " inactive" : ""}/>
+                <Clock minutes="35" seconds={-2}/>
                 <ProgressBar 
                     percent={progressInPercent} 
                     className={isPaused ? " inactive" : ""}

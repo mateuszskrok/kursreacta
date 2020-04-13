@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 
 function zFill(time,n) {
     time = time.toString()
@@ -20,7 +20,7 @@ function NormalizeTime(time,min,max){
     else { return time }
 }
 
-function Clock({className = "", hours = 1, minutes = 7, seconds = 99, miliseconds =4532}) {
+function Clock({className, hours, minutes, seconds, miliseconds}) {
 
     
     hours = NormalizeTime(hours,0,23)
@@ -40,4 +40,22 @@ function Clock({className = "", hours = 1, minutes = 7, seconds = 99, milisecond
     </h2>
 }
 
+Clock.defaultProps = {
+    className:"",
+    hours: 0,
+    miliseconds: 0
+}
+function nonNegativeNumberType(props,propName,componentName){
+    if (props[propName] < 0) {
+        return new Error (`Invalid prop '${propName}' issued to component '${componentName}'. It has to be positive number`)
+    }
+}
+const numberOrStringType = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
+Clock.propTypes = {
+    className: PropTypes.string,
+    hours: numberOrStringType.isRequired,
+    minutes: numberOrStringType.isRequired,
+    seconds: nonNegativeNumberType,
+    miliseconds: numberOrStringType.isRequired
+}
 export default Clock;
