@@ -34,9 +34,7 @@ function Clock({className, hours, minutes, seconds, miliseconds}) {
     miliseconds =zFill(miliseconds,3)
 
     return <h2 className={"clock" + className}>Pozostało 
-    <span className="clock__minutes"> {minutes}</span>
-    <span className="clock__separator">:</span>
-    <span className="clock__seconds">{seconds}</span>
+     {minutes}:{seconds}
     </h2>
 }
 
