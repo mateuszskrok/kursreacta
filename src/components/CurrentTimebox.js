@@ -1,6 +1,7 @@
 import React from "react";
 import Clock from "./Clock";
 import ProgressBar from "./ProgressBar";
+import ProgressCircle from "./ProgressCircle";
 import {getMinutesAndSecondsFromDurationInSeconds} from "../lib/time"
 class CurrentTimebox extends React.Component{
     constructor(props){
@@ -91,7 +92,11 @@ class CurrentTimebox extends React.Component{
                     className={isPaused ? " inactive" : ""}
                     color="red"
                     big={true}
-                    />                                    
+                    />
+                <ProgressCircle
+                    percent={progressInPercent}
+                    size={100}
+                />                              
                 <button onClick={this.handleStart} disabled={isRunning}>Start</button>
                 <button onClick={this.handleStop} disabled={!isRunning}>Stop</button>
                 <button onClick={this.togglePause} disabled={!isRunning}>{!isPaused ? "Pauza" : "Wznów"}</button>

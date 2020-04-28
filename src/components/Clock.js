@@ -33,8 +33,7 @@ function Clock({className, hours, minutes, seconds, miliseconds}) {
     seconds =zFill(seconds,2)
     miliseconds =zFill(miliseconds,3)
 
-    return <h2 className={"clock" + className}>Pozostało 
-     {minutes}:{seconds}
+    return <h2 className={"clock" + className}>Pozostało {minutes}:{seconds}
     </h2>
 }
 
