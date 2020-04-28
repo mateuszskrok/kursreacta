@@ -6,30 +6,47 @@ import Timebox from "./Timebox";
 import TimeboxCreator from "./TimeboxCreator";
 import ErrorBoundary from "./ErrorBoundary"
 
+import TimeboxesAPI from "../api/FakeTimeboxesAPI"
+
+
 class TimeboxList extends React.Component{
     state = {
         title: "Edytuj timebox",
         totalTimeInMinutes:10,
-
-        timeboxes: [
-            {id:uuidv4(), title:"Uczę się Reacta", totalTimeInMinutes:25, isEditable:false},
-            {id:uuidv4(), title:"Uczę się grać", totalTimeInMinutes:15, isEditable:false},
-            {id:uuidv4(), title:"Uczę się list", totalTimeInMinutes:2, isEditable:false}
-               ],
+        timeboxes: [],
+        loading: true,
+        error: null
     }
-   
-    addTimebox = (timebox) => {
-        this.setState(prevState => {
-            const timeboxes = [timebox, ...prevState.timeboxes];
-            return {timeboxes};
-        })
-    }  
+
+    componentDidMount(){
+       TimeboxesAPI.getAllTimeboxes().then(
+            (timeboxes) => this.setState({timeboxes})
+        ).catch(
+            (error) => this.setState({error})
+        ).then(
+            () => this.setState({loading: false})
+        )
+       
+    }   
+    addTimebox = (timebox) =>{
+        TimeboxesAPI.addTimebox(timebox)
+            .then(
+            (timeboxToAdd) => this.setState(prevState => {
+                const timeboxes = [...prevState.timeboxes, timeboxToAdd];
+                return {timeboxes};
+            })  
+        )
+    }
 
     removeTimebox = (idToRemove) => {
-        this.setState(prevState => {
-            const timeboxes = prevState.timeboxes.filter((timebox)=>  timebox.id !== idToRemove);
-            return {timeboxes};
-        })
+        TimeboxesAPI.removeTimebox(idToRemove)
+        .then(
+            () => { this.setState(prevState => {
+                const timeboxes = prevState.timeboxes.filter((timebox)=>  timebox.id !== idToRemove);
+                return {timeboxes};
+                }
+            )}
+        )
     } 
     handleEdit = (idToEdit, editableTimebox) => {
         this.setState(prevState => {
@@ -48,13 +65,15 @@ class TimeboxList extends React.Component{
         this.setState({totalTimeInMinutes:event.target.value});
     }
 
-    updateTimebox = (idToUpdate, updatedTimebox) => {
-        this.setState(prevState => {
-            const timeboxes = prevState.timeboxes.map((timebox) => 
-            timebox.id === idToUpdate ? updatedTimebox : timebox);
-            return {timeboxes};
-        })
-    }   
+    updateTimebox = (indexToUpdate, timeboxToUpdate) => {
+        TimeboxesAPI.replaceTimebox(indexToUpdate, timeboxToUpdate)
+        .then(
+            (updatedTimebox) => this.setState(prevState => {
+                const timeboxes = prevState.timeboxes.map((timebox) => 
+                timebox.id === indexToUpdate ? updatedTimebox : timebox);
+                return {timeboxes};
+            })
+        )}   
     
     handleCancel = (idToEdit, nonEditableTimebox) => {
         this.setState(prevState => {
@@ -72,8 +91,9 @@ class TimeboxList extends React.Component{
             <>
             <TimeboxCreator onCreate={this.handleCreate} />
             <ErrorBoundary message="Coś poszło nie tak">
-                {
-                this.state.timeboxes.map((timebox)=> (
+                {this.state.loading ? "Ładuję timeboxy..." : null}
+                {this.state.error ? "nie udało się załadować timeboxów" : null}
+                {this.state.timeboxes.map((timebox)=> (
                     <Timebox 
                         key={timebox.id} 
                         title={timebox.title} 
