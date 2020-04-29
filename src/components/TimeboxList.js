@@ -6,7 +6,7 @@ import Timebox from "./Timebox";
 import TimeboxCreator from "./TimeboxCreator";
 import ErrorBoundary from "./ErrorBoundary"
 
-import TimeboxesAPI from "../api/FakeTimeboxesAPI"
+import TimeboxesAPI from "../api/FetchTimeboxesAPI"
 
 
 class TimeboxList extends React.Component{
