@@ -6,7 +6,7 @@ import Timebox from "./Timebox";
 import TimeboxCreator from "./TimeboxCreator";
 import ErrorBoundary from "./ErrorBoundary"
 
-import TimeboxesAPI from "../api/AxiosTimeboxesAPI"
+import TimeboxesAPI from "../api/FetchTimeboxesAPI"
 
 
 class TimeboxList extends React.Component{
@@ -19,7 +19,7 @@ class TimeboxList extends React.Component{
     }
 
     componentDidMount(){
-       TimeboxesAPI.getAllTimeboxes().then(
+       TimeboxesAPI.getAllTimeboxes(this.props.accessToken).then(
             (timeboxes) => this.setState({timeboxes})
         ).catch(
             (error) => this.setState({error})
@@ -29,7 +29,7 @@ class TimeboxList extends React.Component{
        
     }   
     addTimebox = (timebox) =>{
-        TimeboxesAPI.addTimebox(timebox)
+        TimeboxesAPI.addTimebox(timebox, this.props.accessToken)
             .then(
             (timeboxToAdd) => this.setState(prevState => {
                 const timeboxes = [...prevState.timeboxes, timeboxToAdd];
@@ -39,7 +39,7 @@ class TimeboxList extends React.Component{
     }
 
     removeTimebox = (idToRemove) => {
-        TimeboxesAPI.removeTimebox(idToRemove)
+        TimeboxesAPI.removeTimebox(idToRemove, this.props.accessToken)
         .then(
             () => { this.setState(prevState => {
                 const timeboxes = prevState.timeboxes.filter((timebox)=>  timebox.id !== idToRemove);
@@ -66,7 +66,7 @@ class TimeboxList extends React.Component{
     }
 
     updateTimebox = (indexToUpdate, timeboxToUpdate) => {
-        TimeboxesAPI.replaceTimebox(indexToUpdate, timeboxToUpdate)
+        TimeboxesAPI.replaceTimebox(indexToUpdate, timeboxToUpdate, this.props.accessToken)
         .then(
             (updatedTimebox) => this.setState(prevState => {
                 const timeboxes = prevState.timeboxes.map((timebox) => 
