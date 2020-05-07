@@ -1,5 +1,6 @@
 .progress{
-    border: 1px solid #004F2D;
+    border: 1px solid;
+    border-color: $effect-color;
     border-radius:$default-border-radius;
     height: 25px;
     margin-bottom: 20px;
@@ -14,7 +15,7 @@
     }
 
     &--color-green{
-        border-color: #004F2D;
+        border-color: $effect-color;
     }
     
     &__bar{
@@ -27,7 +28,7 @@
     }
 
     &--color-green .progress__bar{
-        background-color: #0A8754;
+        background-color:$effect-color;
     }
 }
 

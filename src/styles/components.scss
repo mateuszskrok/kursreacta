@@ -9,11 +9,11 @@
 @import "./components/LoginForm.scss";
 
 
-
 .header {
     display: flex;
     justify-content: flex-end;
     margin: 15px;
+    color: #fff;
 
     &__logout-link{
         margin-left: 10px;
