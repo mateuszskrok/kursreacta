@@ -1,12 +1,11 @@
 import React from "react";
 
-import { v4 as uuidv4 } from 'uuid';
-
 import Timebox from "./Timebox";
 import TimeboxCreator from "./TimeboxCreator";
 import ErrorBoundary from "./ErrorBoundary"
 
 import TimeboxesAPI from "../api/FetchTimeboxesAPI"
+import AuthenticationContext from "../contexts/AuthenticationContext";
 
 
 class TimeboxList extends React.Component{
@@ -19,7 +18,7 @@ class TimeboxList extends React.Component{
     }
 
     componentDidMount(){
-       TimeboxesAPI.getAllTimeboxes(this.props.accessToken).then(
+       TimeboxesAPI.getAllTimeboxes(this.context).then(
             (timeboxes) => this.setState({timeboxes})
         ).catch(
             (error) => this.setState({error})
@@ -29,7 +28,7 @@ class TimeboxList extends React.Component{
        
     }   
     addTimebox = (timebox) =>{
-        TimeboxesAPI.addTimebox(timebox, this.props.accessToken)
+        TimeboxesAPI.addTimebox(timebox, this.context)
             .then(
             (timeboxToAdd) => this.setState(prevState => {
                 const timeboxes = [...prevState.timeboxes, timeboxToAdd];
@@ -39,7 +38,7 @@ class TimeboxList extends React.Component{
     }
 
     removeTimebox = (idToRemove) => {
-        TimeboxesAPI.removeTimebox(idToRemove, this.props.accessToken)
+        TimeboxesAPI.removeTimebox(idToRemove, this.context)
         .then(
             () => { this.setState(prevState => {
                 const timeboxes = prevState.timeboxes.filter((timebox)=>  timebox.id !== idToRemove);
@@ -66,7 +65,7 @@ class TimeboxList extends React.Component{
     }
 
     updateTimebox = (indexToUpdate, timeboxToUpdate) => {
-        TimeboxesAPI.replaceTimebox(indexToUpdate, timeboxToUpdate, this.props.accessToken)
+        TimeboxesAPI.replaceTimebox(indexToUpdate, timeboxToUpdate, this.context)
         .then(
             (updatedTimebox) => this.setState(prevState => {
                 const timeboxes = prevState.timeboxes.map((timebox) => 
@@ -132,4 +131,7 @@ class TimeboxList extends React.Component{
 }
 
 
+TimeboxList.contextType = AuthenticationContext;
+
 export default TimeboxList;
+

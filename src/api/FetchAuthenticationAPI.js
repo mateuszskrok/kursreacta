@@ -1,4 +1,5 @@
-const baseURL = "http://localhost:4000/login"
+import makeRequest from "./MakeFetchRequest";
+const baseURL = "http://localhost:4000/login";
 
 const FetchAuthenticationAPI = {
     
@@ -11,17 +12,3 @@ const FetchAuthenticationAPI = {
 }
 
 export default FetchAuthenticationAPI;
-
-async function makeRequest(url,method,body){
-    const response = await window.fetch(url,{
-        method: method,
-        headers: {
-            "Content-Type":"application/json"
-        },
-        body: JSON.stringify(body)
-    });
-    if (!response.ok){
-        throw new Error("Something went wrong!")
-    }
-    return response;
-}
