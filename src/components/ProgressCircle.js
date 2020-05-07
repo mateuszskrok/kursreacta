@@ -9,7 +9,7 @@ class ProgressCircle extends React.Component{
     
     draw () {
         const ctx = this.canvas.current.getContext("2d");
-        const {size, percent} = this.props;
+        const {percent} = this.props;
         ctx.save();
         //ctx.clearRect(0,0,size,size);
         ctx.rotate(Math.PI/2);

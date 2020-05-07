@@ -12,7 +12,7 @@ function ProgressBar({
         className,
         {
             "progress--big" : big,
-            "progress--color-red" : color === "red"
+            "progress--color-green" : color === "green"
         }
     )
     return  (
