@@ -6,24 +6,9 @@
 @import "./components/ProgressBar.scss";
 @import "./components/TimeboxEditor.scss";
 @import "./components/TimeboxCreator.scss";
+@import "./components/LoginForm.scss";
 
-.LoginForm{
-    text-align: $default-text-align;
-    border: $default-border;
-    border-radius: $default-border-radius;
-    padding: $default-padding;
-    margin-bottom: $default-margin-bottom;
-    background-color: lighten(rgb(252, 147, 147),10);  
 
-    &__error-message{
-        color: crimson;
-        margin: 15px auto;
-        border: crimson 1px solid;
-        border-radius: 5px;
-        padding: 10px;
-        text-align: center;
-    }
-}
 
 .header {
     display: flex;

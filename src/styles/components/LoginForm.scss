@@ -1,9 +1,17 @@
-.TimeboxEditor{
+.LoginForm{
     background-color: $default-background-color;
     text-align: $default-text-align;
     border: $default-border;
     border-radius: $default-border-radius;
     padding: $default-padding;
     margin-bottom: $default-margin-bottom;
-    background-color: darken(gainsboro,30);
+
+    &__error-message{
+        color: crimson;
+        margin: 15px auto;
+        border: crimson 1px solid;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+    }
 }
