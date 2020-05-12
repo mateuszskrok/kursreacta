@@ -1,5 +1,5 @@
 import React from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'; 
 
 class TimeboxCreator extends React.Component{
 
@@ -10,6 +10,10 @@ class TimeboxCreator extends React.Component{
         this.state={
             creatorActive: false
         }
+    }
+    handleCancel = (event) => {
+        event.preventDefault(); 
+        this.setState({creatorActive: false});
     }
     handleSubmit = (event) => {
         event.preventDefault(); 
@@ -45,6 +49,9 @@ class TimeboxCreator extends React.Component{
                     
                 />
                 </label><br />
+                <button onClick={this.handleCancel}>
+                        Anuluj
+                </button>
                 <button>
                         Dodaj Timebox
                 </button>
