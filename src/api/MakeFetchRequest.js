@@ -1,6 +1,5 @@
 async function makeRequest(url,method,body,accessToken){
     const jsonBody = body ? JSON.stringify(body) : undefined
-    console.log({url, method,body, accessToken})
     const headers = {
         "Content-Type":"application/json"
     } 

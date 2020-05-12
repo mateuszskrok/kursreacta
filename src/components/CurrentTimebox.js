@@ -21,7 +21,6 @@ class CurrentTimebox extends React.Component{
     }
 
     componentWillUnmount(){
-        console.log("componentWillUnmount");
         this.stopTimer();
     }
    
@@ -32,7 +31,6 @@ class CurrentTimebox extends React.Component{
                 this.setState(
                     (prevState) => ({ elapsedTimeInseconds: prevState.elapsedTimeInseconds + 0.1})
                 ) 
-                console.log("timer works");
                 },
                 100
             )
@@ -90,7 +88,6 @@ class CurrentTimebox extends React.Component{
         }
         
         const [minutesLeft, secondsLeft] = getMinutesAndSecondsFromDurationInSeconds(timeLeftInSeconds);
-        console.log(minutesLeft,secondsLeft);
         const progressInPercent = 100 * elapsedTimeInseconds / totalTimeInSeconds;
         
         return (

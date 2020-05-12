@@ -42,14 +42,23 @@ class App extends React.Component{
             <AuthenticationContext.Provider 
               value={{
                 accessToken: this.state.accessToken,
-                onLogout: this.handleLogout
+                onLogout: this.handleLogout,
               }}>
               <React.Suspense fallback="Ładuję aplikację...">
                <AuthenticatedApp/> 
               </React.Suspense>
             </AuthenticationContext.Provider>
             :
-            <LoginForm errorMessage={this.state.previousLoginAttemptFailed ? "Nie udało się zalogować" : null} onLoginAttempt={this.handleLoginAttempt}></LoginForm>}
+            <AuthenticationContext.Provider 
+            value={{
+              onLoginAttempt: this.handleLoginAttempt
+            }}>
+            <LoginForm 
+              errorMessage={this.state.previousLoginAttemptFailed ? "Nie udało się zalogować" : null} 
+              >
+            </LoginForm>
+            </AuthenticationContext.Provider>
+            }
           </ErrorBoundary>
       </div>
     )

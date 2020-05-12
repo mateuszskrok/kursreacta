@@ -58,7 +58,7 @@ class TimeboxCreator extends React.Component{
 
             </form> :
             <div className="TimeboxCreator">
-                <button class="plusButton" onClick={this.handleActivateCreator}>
+                <button className="plusButton" onClick={this.handleActivateCreator}>
                     +
                 </button>
             </div>}

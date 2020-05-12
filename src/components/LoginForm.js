@@ -1,4 +1,5 @@
 import React from "react";
+import AuthenticationContext from "../contexts/AuthenticationContext";
 
 class LoginForm extends React.Component{
 
@@ -10,7 +11,7 @@ class LoginForm extends React.Component{
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.onLoginAttempt({
+        this.context.onLoginAttempt({
             email: this.emailInput.current.value,
             password: this.passwordInput.current.value
         });
@@ -47,5 +48,7 @@ class LoginForm extends React.Component{
     }
     
 }
+
+LoginForm.contextType = AuthenticationContext;
 
 export default LoginForm;
