@@ -39,9 +39,13 @@ class App extends React.Component{
       <div className="App">
           <ErrorBoundary message="Coś nie działa w całej aplikacji">
             {this.isUserLoggedIn() ?
-            <AuthenticationContext.Provider value={this.state.accessToken}>
+            <AuthenticationContext.Provider 
+              value={{
+                accessToken: this.state.accessToken,
+                onLogout: this.handleLogout
+              }}>
               <React.Suspense fallback="Ładuję aplikację...">
-               <AuthenticatedApp onLogout={this.handleLogout} /> 
+               <AuthenticatedApp/> 
               </React.Suspense>
             </AuthenticationContext.Provider>
             :

@@ -10,7 +10,7 @@ function getUserEmail(accessToken){
 function UserGreeting(){
     return(
         <AuthenticationContext.Consumer>{
-            (accessToken) =>  <>Witaj {getUserEmail(accessToken)}</>
+            ({accessToken}) =>  <>Witaj {getUserEmail(accessToken)}</>
             }
         </AuthenticationContext.Consumer>
        

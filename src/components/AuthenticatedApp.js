@@ -4,10 +4,10 @@ import InspirationalQuote from "./InspirationalQuote"
 import Header from "./Header";
 import React from "react";
 
-function AuthenticatedApp({onLogout, accessToken}){
+function AuthenticatedApp(){
     return(
     <>
-    <Header onLogout={onLogout}/>
+    <Header/>
     <EditableTimebox/>
     <TimeboxList/>
     <InspirationalQuote/>

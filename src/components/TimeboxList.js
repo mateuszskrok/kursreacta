@@ -18,7 +18,7 @@ class TimeboxList extends React.Component{
     }
 
     componentDidMount(){
-       TimeboxesAPI.getAllTimeboxes(this.context).then(
+       TimeboxesAPI.getAllTimeboxes(this.context.accessToken).then(
             (timeboxes) => this.setState({timeboxes})
         ).catch(
             (error) => this.setState({error})
@@ -28,7 +28,7 @@ class TimeboxList extends React.Component{
        
     }   
     addTimebox = (timebox) =>{
-        TimeboxesAPI.addTimebox(timebox, this.context)
+        TimeboxesAPI.addTimebox(timebox, this.context.accessToken)
             .then(
             (timeboxToAdd) => this.setState(prevState => {
                 const timeboxes = [...prevState.timeboxes, timeboxToAdd];
@@ -38,7 +38,7 @@ class TimeboxList extends React.Component{
     }
 
     removeTimebox = (idToRemove) => {
-        TimeboxesAPI.removeTimebox(idToRemove, this.context)
+        TimeboxesAPI.removeTimebox(idToRemove, this.context.accessToken)
         .then(
             () => { this.setState(prevState => {
                 const timeboxes = prevState.timeboxes.filter((timebox)=>  timebox.id !== idToRemove);
@@ -65,7 +65,7 @@ class TimeboxList extends React.Component{
     }
 
     updateTimebox = (indexToUpdate, timeboxToUpdate) => {
-        TimeboxesAPI.replaceTimebox(indexToUpdate, timeboxToUpdate, this.context)
+        TimeboxesAPI.replaceTimebox(indexToUpdate, timeboxToUpdate, this.context.accessToken)
         .then(
             (updatedTimebox) => this.setState(prevState => {
                 const timeboxes = prevState.timeboxes.map((timebox) => 
