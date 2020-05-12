@@ -7,9 +7,11 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "inspirational-quotes": "^1.0.8",
     "jsonwebtoken": "^8.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-emoji-render": "^1.2.2",
     "react-scripts": "3.4.1",
     "sass": "^1.26.3",
     "uuid": "7.0.3"
