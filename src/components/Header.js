@@ -5,7 +5,7 @@ import UserGreeting from "./UserGreeting";
 function Header({onLogout}){
     return (
         <header className="header"> <UserGreeting/>
-        <a onClick={onLogout} className="header__logout-link">Wyloguj się</a>
+        <a onClick={onLogout} href="/" className="header__logout-link">Wyloguj się</a>
         </header>       
     )
 }

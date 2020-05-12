@@ -3,8 +3,8 @@ import LoginForm from "./components/LoginForm";
 //import RealTimeClock from "./components/RealTimeClock";
 import ErrorBoundary from "./components/ErrorBoundary";
 import AuthenticationAPI from "./api/FetchAuthenticationAPI";
-import AuthenticatedApp from "./components/AuthenticatedApp"
 import AuthenticationContext from "./contexts/AuthenticationContext";
+const AuthenticatedApp = React.lazy(() => import("./components/AuthenticatedApp"));
 
 class App extends React.Component{
 
@@ -40,7 +40,9 @@ class App extends React.Component{
           <ErrorBoundary message="Coś nie działa w całej aplikacji">
             {this.isUserLoggedIn() ?
             <AuthenticationContext.Provider value={this.state.accessToken}>
-                <AuthenticatedApp onLogout={this.handleLogout} /> 
+              <React.Suspense fallback="Ładuję aplikację...">
+               <AuthenticatedApp onLogout={this.handleLogout} /> 
+              </React.Suspense>
             </AuthenticationContext.Provider>
             :
             <LoginForm errorMessage={this.state.previousLoginAttemptFailed ? "Nie udało się zalogować" : null} onLoginAttempt={this.handleLoginAttempt}></LoginForm>}
