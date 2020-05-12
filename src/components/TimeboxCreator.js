@@ -7,6 +7,9 @@ class TimeboxCreator extends React.Component{
         super(props);
         this.titleInput = React.createRef();
         this.totalTimeInMinutesInput = React.createRef();
+        this.state={
+            creatorActive: false
+        }
     }
     handleSubmit = (event) => {
         event.preventDefault(); 
@@ -15,30 +18,44 @@ class TimeboxCreator extends React.Component{
             title: this.titleInput.current.value, 
             totalTimeInMinutes: this.totalTimeInMinutesInput.current.value
             });
+            this.setState({creatorActive: false});
             this.titleInput.current.value = "";
             this.totalTimeInMinutesInput.current.value = "";
     }
+
+    handleActivateCreator = () => {
+        this.setState({creatorActive: true});
+    }
     render(){
         return (
-        <form onSubmit={this.handleSubmit} className="TimeboxCreator">
-            <label>Co robisz?
-            <input
-                ref={this.titleInput}
-                type="text"
-            />
-            </label><br />
-            <label>Ile minut? 
-            <input 
-                ref={this.totalTimeInMinutesInput}
-                type="number"
-                
-            />
-            </label><br />
-            <button>
-                    Dodaj Timebox
-            </button>
+            <>
+            {this.state.creatorActive ?
+            <form onSubmit={this.handleSubmit} className="TimeboxCreator">
+                <label>Co robisz?
+                <input
+                    ref={this.titleInput}
+                    type="text"
+                />
+                </label><br />
+                <label>Ile minut? 
+                <input 
+                    ref={this.totalTimeInMinutesInput}
+                    type="number"
+                    defaultValue={25}
+                    
+                />
+                </label><br />
+                <button>
+                        Dodaj Timebox
+                </button>
 
-        </form>
+            </form> :
+            <div className="TimeboxCreator">
+                <button class="plusButton" onClick={this.handleActivateCreator}>
+                    +
+                </button>
+            </div>}
+            </>
         )
     }
 }

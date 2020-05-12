@@ -14,7 +14,7 @@ class TimeboxList extends React.Component{
         totalTimeInMinutes:10,
         timeboxes: [],
         loading: true,
-        error: null
+        error: null,
     }
 
     componentDidMount(){
@@ -88,7 +88,6 @@ class TimeboxList extends React.Component{
         
         return(
             <>
-            <TimeboxCreator onCreate={this.handleCreate} />
             <ErrorBoundary message="Coś poszło nie tak">
                 {this.state.loading ? "Ładuję timeboxy..." : null}
                 {this.state.error ? "nie udało się załadować timeboxów" : null}
@@ -125,6 +124,7 @@ class TimeboxList extends React.Component{
                 ))
                 }
             </ErrorBoundary>
+            <TimeboxCreator onCreate={this.handleCreate} />
             </>
         )
     }
