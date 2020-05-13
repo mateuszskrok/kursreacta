@@ -75,7 +75,7 @@ class CurrentTimebox extends React.Component{
    
     render() {
         const {isRunning, isPaused, pausesCount, elapsedTimeInseconds} = this.state;
-        const {title, totalTimeInMinutes, isEditable, onEdit} = this.props;
+        const {title, totalTimeInMinutes} = this.props;
         const totalTimeInSeconds = totalTimeInMinutes*60;
         let timeLeftInSeconds = totalTimeInSeconds
 
@@ -91,23 +91,25 @@ class CurrentTimebox extends React.Component{
         const progressInPercent = 100 * elapsedTimeInseconds / totalTimeInSeconds;
         
         return (
-        <div className={`CurrentTimebox ${!isEditable ? "" : "inactive"}`}>
-                <h1>{title}</h1> 
-                <Clock minutes={minutesLeft} seconds={secondsLeft} className={isPaused ? " inactive" : ""}/>
-                <ProgressBar 
-                    percent={progressInPercent} 
-                    className={isPaused ? " inactive" : ""}
-                    color="green"
-                    big={true}
-                    />
-                <button onClick={this.handleStart} disabled={isRunning}>Start</button>
-                <button onClick={this.handleStop} disabled={!isRunning}>Stop</button>
-                <button onClick={this.togglePause} disabled={!isRunning}>{!isPaused ? "Pauza" : "Wznów"}</button>
-                <button onClick={onEdit} disabled={isEditable} >Edytuj</button>
-                <br></br>
-                Liczba przerw: {pausesCount}
-                
-        </div>
+            <React.StrictMode>
+                <div className={`CurrentTimebox`}>
+                    <h1>{title}</h1> 
+                    <Clock minutes={minutesLeft} seconds={secondsLeft} className={isPaused ? " inactive" : ""}/>
+                    <ProgressBar 
+                        percent={progressInPercent} 
+                        className={isPaused ? " inactive" : ""}
+                        color="green"
+                        big={true}
+                        />
+                    <button onClick={this.handleStart} disabled={isRunning}>Start</button>
+                    <button onClick={this.handleStop} disabled={!isRunning}>Stop</button>
+                    <button onClick={this.togglePause} disabled={!isRunning}>{!isPaused ? "Pauza" : "Wznów"}</button>
+                    <br></br>
+                    Liczba przerw: {pausesCount}
+                    
+                </div>
+            </React.StrictMode>
+        
         )  
     }
   

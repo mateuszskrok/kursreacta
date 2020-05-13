@@ -1,4 +1,4 @@
-import EditableTimebox from "./EditableTimebox";
+import CurrentTimebox from "./CurrentTimebox";
 import InspirationalQuote from "./InspirationalQuote"
 import Header from "./Header";
 import React from "react";
@@ -8,7 +8,7 @@ function AuthenticatedApp(){
     return(
     <>
     <Header/>
-    <EditableTimebox/>
+    <CurrentTimebox title="Uczę się Reacta" totalTimeInMinutes={1}/>
     <TimeboxesManager/>
     <InspirationalQuote/>
     </>
