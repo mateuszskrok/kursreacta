@@ -1,11 +1,11 @@
 import React from "react";
-
 import TimeboxCreator from "./TimeboxCreator";
 import ErrorBoundary from "./ErrorBoundary"
-
+import Timebox from "./Timebox"
 import TimeboxesAPI from "../api/FetchTimeboxesAPI"
 import AuthenticationContext from "../contexts/AuthenticationContext";
 import { TimeboxesList } from "./TimeboxesList";
+import ReadOnlyTimebox from "./ReadOnlyTimebox";
 
 
 class TimeboxesManager extends React.Component{
@@ -84,6 +84,45 @@ class TimeboxesManager extends React.Component{
     handleCreate = (createdTimebox) => {
         this.addTimebox(createdTimebox);
     }
+    renderTimebox = (timebox) => {
+        return(<Timebox 
+            key={timebox.id} 
+            title={timebox.title} 
+            totalTimeInMinutes={timebox.totalTimeInMinutes} 
+            isEditable={timebox.isEditable} 
+            onTitleChange={this.handleTitleChange} 
+            onTotalTimeInMinutesChange={this.handleTotalTimeInMinutesChange} 
+            onDelete={() => this.removeTimebox(timebox.id)} 
+            onEdit={() => this.handleEdit(timebox.id, {
+                id: timebox.id,
+                title: timebox.title,
+                totalTimeInMinutes: timebox.totalTimeInMinutes,
+                isEditable: true
+            })} 
+            onSave={() => this.updateTimebox(timebox.id, {
+                id: timebox.id,
+                title: this.state.title,
+                totalTimeInMinutes: this.state.totalTimeInMinutes
+            })} 
+            onCancel={() => this.handleCancel(timebox.id, {
+                id: timebox.id,
+                title: timebox.title,
+                totalTimeInMinutes: timebox.totalTimeInMinutes,
+                isEditable: false
+            })} 
+            />)
+    }
+
+    renderReadOnlyTimebox = (timebox) => {
+        return(
+            <ReadOnlyTimebox 
+                key={timebox.id} 
+                title={timebox.title} 
+                totalTimeInMinutes={timebox.totalTimeInMinutes} 
+            />
+        )
+    }
+
     render(){
         
         return(
@@ -93,12 +132,8 @@ class TimeboxesManager extends React.Component{
                 {this.state.error ? "nie udało się załadować timeboxów" : null}
             <TimeboxesList 
                 timeboxes={this.state.timeboxes}
-                onTimeboxEdit={this.handleEdit}
-                onTimeboxEditCancel={this.handleCancel}
-                onTimeboxUpdate={this.updateTimebox}
-                onTimeboxDelete={this.removeTimebox}
-                onTitleChange={this.handleTitleChange}
-                onTotalTimeInMinutesChange={this.handleTotalTimeInMinutesChange}/>
+                renderTimebox={this.renderTimebox}
+            />
             </ErrorBoundary>
             <TimeboxCreator onCreate={this.handleCreate} />
             </>
