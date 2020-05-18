@@ -101,8 +101,12 @@ class CurrentTimebox extends React.Component{
                         color="green"
                         big={true}
                         />
-                    <button onClick={this.handleStart} disabled={isRunning}>Start</button>
-                    <button onClick={this.handleStop} disabled={!isRunning}>Stop</button>
+                    {isRunning ? 
+                        <button onClick={this.handleStop} disabled={!isRunning}>Stop</button> :
+                        <button onClick={this.handleStart} disabled={isRunning}>Start</button>
+                    }
+                    
+                    
                     <button onClick={this.togglePause} disabled={!isRunning}>{!isPaused ? "Pauza" : "Wznów"}</button>
                     <br></br>
                     Liczba przerw: {pausesCount}
