@@ -1,3 +1,9 @@
+## Timeboxing app
+
+This project is result of React JS course - work in progress. It was created with use of various techniques that were part of the course.
+
+Goal of this application is to employ [Pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique) to help user with task management. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
