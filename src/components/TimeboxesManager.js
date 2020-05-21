@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import TimeboxCreator from "./TimeboxCreator";
 import ErrorBoundary from "./ErrorBoundary"
 import Timebox from "./Timebox"
@@ -6,21 +6,7 @@ import TimeboxesAPI from "../api/FetchTimeboxesAPI"
 import AuthenticationContext from "../contexts/AuthenticationContext";
 import { TimeboxesList } from "./TimeboxesList";
 import ReadOnlyTimebox from "./ReadOnlyTimebox";
-
-
-const stateReducer = (prevState, stateChanges) => {
-    var newState = prevState;
-    if (typeof(stateChanges) === "function"){
-        newState = stateChanges(prevState)
-    }
-    else{
-        newState = {
-            ...prevState,
-            ...stateChanges
-        };
-    }
-    return newState;
-}
+import { useLegacySetState } from "./useLegacySetState";
 
 function TimeboxesManager (){
     const initialState = {
@@ -32,7 +18,7 @@ function TimeboxesManager (){
     }
 
     const {accessToken} = useContext(AuthenticationContext);
-    const [state, setState] = useReducer(stateReducer, initialState)
+    const [state, setState] = useLegacySetState(initialState)
 
     useEffect(() => {
         TimeboxesAPI.getAllTimeboxes(accessToken).then(
