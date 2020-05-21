@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useReducer, useContext } from "react";
 import TimeboxCreator from "./TimeboxCreator";
 import ErrorBoundary from "./ErrorBoundary"
 import Timebox from "./Timebox"
@@ -8,8 +8,22 @@ import { TimeboxesList } from "./TimeboxesList";
 import ReadOnlyTimebox from "./ReadOnlyTimebox";
 
 
-class TimeboxesManager extends React.Component{
-    state = {
+const stateReducer = (prevState, stateChanges) => {
+    var newState = prevState;
+    if (typeof(stateChanges) === "function"){
+        newState = stateChanges(prevState)
+    }
+    else{
+        newState = {
+            ...prevState,
+            ...stateChanges
+        };
+    }
+    return newState;
+}
+
+function TimeboxesManager (){
+    const initialState = {
         title: "Edytuj timebox",
         totalTimeInMinutes:10,
         timeboxes: [],
@@ -17,38 +31,43 @@ class TimeboxesManager extends React.Component{
         error: null,
     }
 
-    componentDidMount(){
-       TimeboxesAPI.getAllTimeboxes(this.context.accessToken).then(
-            (timeboxes) => this.setState({timeboxes})
-        ).catch(
-            (error) => this.setState({error})
-        ).then(
-            () => this.setState({loading: false})
-        )
-       
-    }   
-    addTimebox = (timebox) =>{
-        TimeboxesAPI.addTimebox(timebox, this.context.accessToken)
+    const {accessToken} = useContext(AuthenticationContext);
+    const [state, setState] = useReducer(stateReducer, initialState)
+
+    useEffect(() => {
+        TimeboxesAPI.getAllTimeboxes(accessToken).then(
+            (timeboxes) => setState({timeboxes})
+            )
+            .catch(
+                (error) => setState({error})
+            )
             .then(
-            (timeboxToAdd) => this.setState(prevState => {
+                () => setState({loading: false}))
+    },[accessToken]);
+    
+    
+    const addTimebox = (timebox) =>{
+        TimeboxesAPI.addTimebox(timebox, accessToken)
+            .then(
+            (timeboxToAdd) => setState(prevState => {
                 const timeboxes = [...prevState.timeboxes, timeboxToAdd];
                 return {timeboxes};
             })  
         )
     }
 
-    removeTimebox = (idToRemove) => {
-        TimeboxesAPI.removeTimebox(idToRemove, this.context.accessToken)
+    const removeTimebox = (idToRemove) => {
+        TimeboxesAPI.removeTimebox(idToRemove, accessToken)
         .then(
-            () => { this.setState(prevState => {
+            () => { setState(prevState => {
                 const timeboxes = prevState.timeboxes.filter((timebox)=>  timebox.id !== idToRemove);
                 return {timeboxes};
                 }
             )}
         )
     } 
-    handleEdit = (idToEdit, editableTimebox) => {
-        this.setState(prevState => {
+    const handleEdit = (idToEdit, editableTimebox) => {
+        setState(prevState => {
             const title = editableTimebox.title;
             const totalTimeInMinutes = editableTimebox.totalTimeInMinutes;
             const timeboxes = prevState.timeboxes.map((timebox) => 
@@ -57,54 +76,54 @@ class TimeboxesManager extends React.Component{
         })
     }
     
-    handleTitleChange = (event) => {
-        this.setState({title:event.target.value});
+    const handleTitleChange = (event) => {
+        setState({title:event.target.value});
     } 
-    handleTotalTimeInMinutesChange = (event) => {
-        this.setState({totalTimeInMinutes:event.target.value});
+    const handleTotalTimeInMinutesChange = (event) => {
+        setState({totalTimeInMinutes:event.target.value});
     }
 
-    updateTimebox = (indexToUpdate, timeboxToUpdate) => {
-        TimeboxesAPI.replaceTimebox(indexToUpdate, timeboxToUpdate, this.context.accessToken)
+    const updateTimebox = (indexToUpdate, timeboxToUpdate) => {
+        TimeboxesAPI.replaceTimebox(indexToUpdate, timeboxToUpdate, accessToken)
         .then(
-            (updatedTimebox) => this.setState(prevState => {
+            (updatedTimebox) => setState(prevState => {
                 const timeboxes = prevState.timeboxes.map((timebox) => 
                 timebox.id === indexToUpdate ? updatedTimebox : timebox);
                 return {timeboxes};
             })
         )}   
     
-    handleCancel = (idToEdit, nonEditableTimebox) => {
-        this.setState(prevState => {
+    const handleCancel = (idToEdit, nonEditableTimebox) => {
+        setState(prevState => {
             const timeboxes = prevState.timeboxes.map((timebox) => 
             timebox.id === idToEdit ? nonEditableTimebox : timebox);
             return {timeboxes};
         })
     }
-    handleCreate = (createdTimebox) => {
-        this.addTimebox(createdTimebox);
+    const handleCreate = (createdTimebox) => {
+        addTimebox(createdTimebox);
     }
-    renderTimebox = (timebox) => {
+    const renderTimebox = (timebox) => {
         return(<Timebox 
             key={timebox.id} 
             title={timebox.title} 
             totalTimeInMinutes={timebox.totalTimeInMinutes} 
             isEditable={timebox.isEditable} 
-            onTitleChange={this.handleTitleChange} 
-            onTotalTimeInMinutesChange={this.handleTotalTimeInMinutesChange} 
-            onDelete={() => this.removeTimebox(timebox.id)} 
-            onEdit={() => this.handleEdit(timebox.id, {
+            onTitleChange={handleTitleChange} 
+            onTotalTimeInMinutesChange={handleTotalTimeInMinutesChange} 
+            onDelete={() => removeTimebox(timebox.id)} 
+            onEdit={() => handleEdit(timebox.id, {
                 id: timebox.id,
                 title: timebox.title,
                 totalTimeInMinutes: timebox.totalTimeInMinutes,
                 isEditable: true
             })} 
-            onSave={() => this.updateTimebox(timebox.id, {
+            onSave={() => updateTimebox(timebox.id, {
                 id: timebox.id,
-                title: this.state.title,
-                totalTimeInMinutes: this.state.totalTimeInMinutes
+                title: state.title,
+                totalTimeInMinutes: state.totalTimeInMinutes
             })} 
-            onCancel={() => this.handleCancel(timebox.id, {
+            onCancel={() => handleCancel(timebox.id, {
                 id: timebox.id,
                 title: timebox.title,
                 totalTimeInMinutes: timebox.totalTimeInMinutes,
@@ -113,7 +132,7 @@ class TimeboxesManager extends React.Component{
             />)
     }
 
-    renderReadOnlyTimebox = (timebox) => {
+    const renderReadOnlyTimebox = (timebox) => {
         return(
             <ReadOnlyTimebox 
                 key={timebox.id} 
@@ -122,25 +141,22 @@ class TimeboxesManager extends React.Component{
             />
         )
     }
-
-    render(){
         
-        return(
-            <>
-            <ErrorBoundary message="Coś poszło nie tak">
-                {this.state.loading ? "Ładuję timeboxy..." : null}
-                {this.state.error ? "nie udało się załadować timeboxów" : null}
-            <TimeboxesList 
-                timeboxes={this.state.timeboxes}
-                renderTimebox={this.renderTimebox}
-            />
-            </ErrorBoundary>
-            <TimeboxCreator onCreate={this.handleCreate} />
-            </>
-        )
-    }
+    return(
+        <>
+        <ErrorBoundary message="Coś poszło nie tak">
+            {state.loading ? "Ładuję timeboxy..." : null}
+            {state.error ? "nie udało się załadować timeboxów" : null}
+        <TimeboxesList 
+            timeboxes={state.timeboxes}
+            renderTimebox={renderTimebox}
+        />
+        </ErrorBoundary>
+        <TimeboxCreator onCreate={handleCreate} />
+        </>
+    )
 }
 
-TimeboxesManager.contextType = AuthenticationContext;
+
 
 export default TimeboxesManager;
